@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="290.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.archiru.bingusbot.StartController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Label text="bingusBot Start Page woo ily fokii" />
+   <PasswordField fx:id="tokenField" promptText="Discord Token" />
+   <TextField fx:id="serverIdField" promptText="ServerID" />
+   <TextField fx:id="channelIdField" promptText="ChannelID" />
+   <TextField fx:id="userIdField" promptText="UserID to ping" />
+   <CheckBox fx:id="puroPuroCheckBox" mnemonicParsing="false" text="Show Puro-Puro" />
+   <Separator prefWidth="200.0" />
+   <HBox prefHeight="35.0" prefWidth="250.0">
+      <children>
+         <VBox prefHeight="150.0" prefWidth="127.0">
+            <children>
+               <CheckBox fx:id="magpieCheckBox" mnemonicParsing="false" text="Magpie impling" />
+               <CheckBox fx:id="ninjaCheckBox" mnemonicParsing="false" text="Ninja impling" />
+            </children>
+         </VBox>
+         <VBox prefHeight="35.0" prefWidth="119.0">
+            <children>
+               <CheckBox fx:id="dragonCheckBox" mnemonicParsing="false" text="Dragon impling" />
+               <CheckBox fx:id="crystalCheckBox" mnemonicParsing="false" text="Crystal impling" />
+            </children>
+         </VBox>
+      </children>
+   </HBox>
+   <CheckBox fx:id="luckyCheckBox" mnemonicParsing="false" text="Lucky impling" />
+   <Separator prefWidth="200.0" />
+    <Button onAction="#startBotOnAction" text="Start bot" />
+</VBox>
