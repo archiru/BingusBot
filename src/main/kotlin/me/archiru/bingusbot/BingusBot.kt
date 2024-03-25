@@ -29,9 +29,9 @@ class BingusBot {
         ninjaSelected: Boolean,
         dragonSelected: Boolean,
         crystalSelected: Boolean,
-        luckySelected: Boolean) {
+        luckySelected: Boolean,
+        secondsToWait: Int) {
         val kord = Kord(token)
-        val secondsToWait = 10
 
         println("Starting bot...")
 
@@ -87,38 +87,12 @@ class SendMessageTask(
                 val messageContent = buildString {
                     newestItems.forEachIndexed { index, data ->
                         val implingName = implingNames[data.npcid] ?: "Unknown impling"
-                        if (showPuroPuro) {
-                            if (implingName == "Magpie impling" && showMagpie) {
-                                append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                            }
-                            if (implingName == "Ninja impling" && showNinja) {
-                                append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                            }
-                            if (implingName == "Dragon impling" && showDragon) {
-                                append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                            }
-                            if (implingName == "Crystal impling" && showCrystal) {
-                                append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                            }
-                            if (implingName == "Lucky impling" && showLucky) {
-                                append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                            }
-                        } else {
-                            if (data.xcoord !in 2561..2621 && data.ycoord !in 4290..4349) {
-                                if (implingName == "Magpie impling" && showMagpie) {
-                                    append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                                }
-                                if (implingName == "Ninja impling" && showNinja) {
-                                    append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                                }
-                                if (implingName == "Dragon impling" && showDragon) {
-                                    append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                                }
-                                if (implingName == "Crystal impling" && showCrystal) {
-                                    append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
-                                }
-                                if (implingName == "Lucky impling" && showLucky) {
-                                    append("${index + 1}. ${implingName}: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n")
+                        if (shouldShow(implingName)) {
+                            if (showPuroPuro) {
+                                append(implingInfoString(implingName, data, index, member))
+                            } else {
+                                if (data.xcoord !in 2561..2621 && data.ycoord !in 4290..4349) {
+                                    append(implingInfoString(implingName, data, index, member))
                                 }
                             }
                         }
@@ -132,13 +106,26 @@ class SendMessageTask(
         }
     }
 
+    private fun shouldShow(implingName: String): Boolean {
+        return when (implingName) {
+            "Magpie impling" -> showMagpie
+            "Ninja impling" -> showNinja
+            "Dragon impling" -> showDragon
+            "Crystal impling" -> showCrystal
+            "Lucky impling" -> showLucky
+            else -> false
+        }
+    }
+
+    private fun implingInfoString(implingName: String, data: ImplingData, index: Int, member: Member): String {
+        return "${index + 1}. $implingName: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n"
+    }
+
     private fun isNewestItem(item: ImplingData): Boolean {
         return !lastItems.contains(item)
     }
 
-
-
-    fun fetchData(url: String): String? {
+    private fun fetchData(url: String): String? {
         val client = OkHttpClient()
         val request = Request.Builder()
             .url(url)

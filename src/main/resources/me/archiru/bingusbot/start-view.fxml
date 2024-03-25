@@ -14,11 +14,12 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-   <Label text="bingusBot Start Page woo ily fokii" />
+   <Label text="BingusBot Start Page" />
    <PasswordField fx:id="tokenField" promptText="Discord Token" />
    <TextField fx:id="serverIdField" promptText="ServerID" />
    <TextField fx:id="channelIdField" promptText="ChannelID" />
    <TextField fx:id="userIdField" promptText="UserID to ping" />
+   <TextField fx:id="delayField" promptText="Seconds Delay Between Requests" />
    <CheckBox fx:id="puroPuroCheckBox" mnemonicParsing="false" text="Show Puro-Puro" />
    <Separator prefWidth="200.0" />
    <HBox prefHeight="35.0" prefWidth="250.0">
@@ -39,5 +40,6 @@
    </HBox>
    <CheckBox fx:id="luckyCheckBox" mnemonicParsing="false" text="Lucky impling" />
    <Separator prefWidth="200.0" />
+   <Label fx:id="statusLabel" text="Status" textFill="RED" visible="false" />
     <Button onAction="#startBotOnAction" text="Start bot" />
 </VBox>

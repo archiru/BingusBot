@@ -10,7 +10,7 @@ class HelloApplication : Application() {
         val fxmlLoader = FXMLLoader(HelloApplication::class.java.getResource("start-view.fxml"))
         val scene = Scene(fxmlLoader.load(), 290.0, 500.0)
         stage.isResizable = false
-        stage.title = "bingusBot startup"
+        stage.title = "BingusBot startup"
         stage.scene = scene
         stage.show()
     }
