@@ -118,7 +118,7 @@ class SendMessageTask(
     }
 
     private fun implingInfoString(implingName: String, data: ImplingData, index: Int, member: Member): String {
-        return "${index + 1}. $implingName: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10,   discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\n"
+        return "${index + 1}. $implingName: world: ${data.world}, Area: https://explv.github.io/?centreX=${data.xcoord}&centreY=${data.ycoord}&centreZ=${data.plane}&zoom=10, discoveredtime: ${data.formattedDiscoveredTime()} ${member.mention}\nXcoord: ${data.xcoord}\nYcoord: ${data.ycoord}\n"
     }
 
     private fun isNewestItem(item: ImplingData): Boolean {
